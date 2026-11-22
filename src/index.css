@@ -1,0 +1,245 @@
+:root {
+  --bg: #f4f5f9;
+  --surface: #ffffff;
+  --text: #1c1e26;
+  --muted: #6b7080;
+  --border: #e3e5ec;
+  --accent: #6d5dfc;
+  --accent-hover: #5846f0;
+  --accent-text: #ffffff;
+  --received: #eceef5;
+  --radius: 18px;
+  --shadow: 0 1px 3px rgb(20 20 40 / 0.08), 0 8px 24px rgb(20 20 40 / 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1117;
+    --surface: #181b24;
+    --text: #e8e9f0;
+    --muted: #8b90a3;
+    --border: #272b38;
+    --received: #242836;
+    --shadow: 0 1px 3px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.3);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  background: var(--surface);
+}
+
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem clamp(1rem, 4vw, 2.5rem);
+  border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Buttons */
+.btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.6rem 1.1rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s, opacity 0.15s;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* Sign in */
+.signin {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--muted);
+}
+
+.signin p {
+  margin: 0;
+}
+
+/* Messages */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem clamp(1rem, 4vw, 2.5rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.message {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  max-width: min(70%, 640px);
+}
+
+.message img {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.bubble {
+  min-width: 0;
+  padding: 0.5rem 0.95rem 0.6rem;
+  border-radius: var(--radius);
+}
+
+.meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 0.15rem;
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+.name {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta time {
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.bubble p {
+  margin: 0;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.message.sent {
+  flex-direction: row-reverse;
+  align-self: flex-end;
+}
+
+.message.sent .bubble {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-bottom-right-radius: 4px;
+}
+
+.message.received {
+  align-self: flex-start;
+}
+
+.message.received .bubble {
+  background: var(--received);
+  border-bottom-left-radius: 4px;
+}
+
+/* Composer */
+form {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.85rem clamp(1rem, 4vw, 2.5rem);
+  border-top: 1px solid var(--border);
+  padding-bottom: max(0.85rem, env(safe-area-inset-bottom));
+}
+
+form input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  color: inherit;
+  font: inherit;
+}
+
+form input::placeholder {
+  color: var(--muted);
+}
+
+@media (max-width: 600px) {
+  .message {
+    max-width: 90%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
